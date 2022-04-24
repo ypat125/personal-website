@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import './App.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -7,9 +7,28 @@ import { SocialIcon } from 'react-social-icons';
 
 const projects = [
   {
+    name: 'Swiftgift',
+    subtitle: 'Tracking donations of securities for colleges and non-profits',
+    color: "bg-indigo-500",
+    linkcolor: "#f87838",
+    span: "col-span-12",
+    show: false,
+    details: {
+      link_title: "swiftgift.io",
+      link: "https://swiftgift.io",
+      descriptions: [
+        "Swiftgift helps non-profits and colleges track incoming donations of stock.",
+        "We're working with Stanford as a design partner to implemnent our system.",
+      ],
+      image_display: "grid-cols-12",
+      images: []
+    }
+  },
+  {
     name: 'Helping Hands',
     subtitle: 'Food delivery during the pandemic',
     color: "bg-sky-400",
+    linkcolor: "#f87838",
     span: "col-span-8",
     show: false,
     details: {
@@ -329,6 +348,19 @@ const YoutubeSlide = ({ url, isSelected }) => (
 function App() {
   const [projectsList, setProjects] = useState(projects);
   const [previouslyViewedProjectIndex, setPreviouslyViewedProjectIndex] = useState(null);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  const isMobile = width <= 768;
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -371,7 +403,7 @@ function App() {
           <img src={require("./assets/profile_photo.jpeg")} className="w-20 rounded-full absolute right-5 -top-5 border-2 border-slate-800"></img>
           <h1 className='font-semibold text-4xl text-slate-50'>Yash Patil</h1>
           <p className='text-lg text-slate-50 font-normal pt-12'>Hi there! I'm Yash, a freshman at <span className='text-red-400'>Stanford</span> studying Computer Science.</p>
-          <p className='text-lg text-slate-50 font-normal pt-4'>Currently, I'm a fullstack engineer at <a className="text-teal-400" href="https://actively.ai">Actively.ai</a> building software that enables every knowledge worker to be a data scientist. I'm also co-directing <a className="text-teal-400" href="https://www.treehacks.com/" target="_blank">TreeHacks 2023</a>, Stanford's largest annual hackathon.</p>
+          <p className='text-lg text-slate-50 font-normal pt-4'>Currently, I'm a fullstack engineer at <a className="text-teal-400" href="https://actively.ai" target="_blank">Actively.ai</a> building software that enables every knowledge worker to be a data scientist. I'm also co-directing <a className="text-teal-400" href="https://www.treehacks.com/" target="_blank">TreeHacks 2023</a>, Stanford's largest annual hackathon.</p>
           <p className='text-lg text-slate-50 font-normal pt-4'>During the pandemic, I co-founded <a target='_blank' className="text-teal-400" href="https://helpinghands.community">Helping Hands</a>, a startup that streamlines how food banks and social service organizations deliver food at scale (over 2,000,000 meals delivered).</p>
           <p className='text-lg text-slate-50 font-normal pt-4 pb-8'>This summer (2022), I'll be interning at <a className="text-teal-400" href="https://officetogether.com">OfficeTogether</a> in NYC. Previously, I've worked as a software engineering intern at <a target='_blank' className="text-teal-400" href="https://bit.io">bit.io</a> and <a className="text-teal-400" href="https://getpei.com">Pei</a> as well as a grid modeling researcher at the <a className="text-teal-400" href="http://www.webberenergygroup.com/people/yash-patil/">Webber Energy Group</a> at UT Austin.</p>
           <SocialIcon network="twitter" url="https://twitter.com/ypatil125" fgColor="#ffffff" className="mr-4" />
@@ -380,10 +412,11 @@ function App() {
           <span className='text-lg text-slate-50 font-normal'>[<a target="_blank" href="./Resume.pdf" className="text-orange-400">Resume</a>]</span>
         </div>
 
-        <h2 className='font-semibold text-2xl text-slate-50 pt-16 pb-4'>Projects</h2>
-        <div className="grid sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4">
+        <h2 className='font-semibold text-2xl text-slate-50 pt-16 pb-4'>Projects <span className="text-slate-400">(click on each to expand)</span></h2>
+        <div className="grid max-w-full sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4">
           {projectsList.map((project, index) =>
-            <div className={`${project.span} ${project.color} ${project.show ? 'p-8' : 'p-4'} rounded-xl flex cursor-pointer flex-col`} onClick={() => showMore(index)}>
+            <div className={`${isMobile ? 'col-span-12' : project.span} ${project.color} ${project.show ? 'p-8' : 'p-4'} flex cursor-pointer flex-col shadow-2xl`}
+              onClick={() => showMore(index)}>
               {project.show && project.details.logo && <div>
                 <img src={require(`${project.details.logo}`)} className="w-20 rounded-full bg-white p-4 mb-6"></img>
               </div>}
@@ -391,7 +424,7 @@ function App() {
                 <span className={`text-slate-50`}>{project.name}</span><span className='text-slate-50'> — {project.subtitle}</span>
               </div>
               {project.show && <div>
-                <a target='_blank' href={project.details.link} className={`text-black text-lg underline`}>{project.details.link_title}</a>
+                <a target='_blank' href={project.details.link} className={`text-slate-50 text-lg underline`}>{project.details.link_title}</a>
                 {project.details.descriptions.map((description) =>
                   <p className='text-lg text-slate-50 font-normal pt-4' dangerouslySetInnerHTML={{ __html: description }}></p>
                 )}
