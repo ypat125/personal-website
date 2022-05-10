@@ -3,29 +3,13 @@ import ReactPlayer from 'react-player';
 import './App.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { TwitterVideoEmbed } from 'react-twitter-embed';
 import { SocialIcon } from 'react-social-icons';
 
 const projects = [
   {
-    name: 'Swiftgift',
-    subtitle: 'Tracking donations of securities for colleges and non-profits',
-    color: "bg-indigo-500",
-    linkcolor: "#f87838",
-    span: "col-span-12",
-    show: false,
-    details: {
-      link_title: "swiftgift.io",
-      link: "https://swiftgift.io",
-      descriptions: [
-        "Swiftgift helps non-profits and colleges track incoming donations of stock.",
-        "We're working with Stanford as a design partner to implemnent our system.",
-      ],
-      image_display: "grid-cols-12",
-      images: []
-    }
-  },
-  {
     name: 'Helping Hands',
+    id: 'hh-card',
     subtitle: 'Food delivery during the pandemic',
     color: "bg-sky-400",
     linkcolor: "#f87838",
@@ -56,26 +40,8 @@ const projects = [
     }
   },
   {
-    name: 'Rinc.ai',
-    subtitle: 'Plug-and-play Content Moderation',
-    descriptions: [
-    ],
-    color: "bg-indigo-500",
-    span: "col-span-4",
-    show: false,
-    details: {
-      link_title: "Rinc.ai",
-      link: "https://rinc.ai",
-      descriptions: [
-        "We are building a human-in-the-loop solution for moderating user-generated content. We train ML models on content from customer applications to create filters that enforce platform-specific guidelines. We also provide a plug-and-play user reporting flow for applications that connects with our moderator dashboard."
-      ],
-      logo: "",
-      image_display: "grid-cols-2",
-      images: []
-    }
-  },
-  {
     name: 'Boba Tea Vending Machine',
+    id: 'boba-card',
     subtitle: 'A machine that makes bubble tea',
     descriptions: [
     ],
@@ -90,11 +56,76 @@ const projects = [
       ],
       logo: "",
       image_display: "grid-cols-2",
+      images: [],
+      boba: true
+    }
+  },
+  {
+    name: 'ERCOT Grid Modeling',
+    id: 'ercot-card',
+    subtitle: "Digital model of Texas's electric grid",
+    descriptions: [
+    ],
+    color: "bg-red-500",
+    span: "col-span-5",
+    show: false,
+    details: {
+      link_title: "",
+      link: "",
+      descriptions: [
+        "In 2019 I started as a researcher at the Webber Energy Group—a research group in the Mechanical Engineering Department at UT Austin that focuses on critical energy and environmental issues.",
+        "My work primarly consists of creating open source digital models of Texas’ power grid using Python for Power Systems Analysis and SWITCH: Power Systems Planning model."
+      ],
+      logo: "./assets/images/webberenergy_photos/webberenergy_logo.png",
+      image_display: "grid-cols-2",
+      images: [],
+      gif: "https://media.giphy.com/media/QAys7CJQL6qbef6Qbx/giphy.gif"
+    }
+  },
+  {
+    name: 'Science Olympiad',
+    id: 'scio-card',
+    subtitle: 'Fun engineering challenges',
+    descriptions: [
+    ],
+    color: "bg-rose-500",
+    span: "col-span-7",
+    show: false,
+    details: {
+      link_title: "lasascioly.com",
+      link: "https://www.lasascioly.com/",
+      descriptions: [
+        "I've been competing in Science Olympiad, with a primary focus in engineering, for the past 7 years. My sophmore year (10th) I was elected as the captain of the LASA Science Olympiad team.",
+      ],
+      logo: "./assets/images/science_olympiad_photos/square_scio.png",
+      image_display: "grid-cols-2",
+      images: [],
+      gif: "",
+      scio: true
+    }
+  },
+  {
+    name: 'Swiftgift',
+    id: 'swiftgift-card',
+    subtitle: 'Tracking donations of securities for colleges and non-profits',
+    color: "bg-indigo-500",
+    linkcolor: "#f87838",
+    span: "col-span-12",
+    show: false,
+    details: {
+      link_title: "swiftgift.io",
+      link: "https://swiftgift.io",
+      descriptions: [
+        "Swiftgift helps non-profits and colleges track incoming donations of stock.",
+        "We're working with Stanford as a design partner to implemnent our system.",
+      ],
+      image_display: "grid-cols-12",
       images: []
     }
   },
   {
     name: 'Stanny Eats',
+    id: 'eats-card',
     subtitle: 'Dining hall voting',
     descriptions: [
     ],
@@ -117,6 +148,7 @@ const projects = [
   },
   {
     name: 'Stanford Social',
+    id: 'stanfordsocial-card',
     subtitle: 'Interest based friend matching',
     descriptions: [
     ],
@@ -138,11 +170,12 @@ const projects = [
   },
   {
     name: 'Classcollab',
+    id: 'classcollab-card',
     subtitle: 'Share your classes and make group chats',
     descriptions: [
     ],
     color: "bg-yellow-500",
-    span: "col-span-3",
+    span: "col-span-4",
     show: false,
     details: {
       link_title: "classcollab.net",
@@ -159,6 +192,7 @@ const projects = [
   },
   {
     name: 'New Reads',
+    id: 'newreads-card',
     subtitle: "Share what you're reading. Discover what to read next.",
     descriptions: [
     ],
@@ -182,49 +216,28 @@ const projects = [
     }
   },
   {
-    name: 'ERCOT Grid Modeling',
-    subtitle: "Digital model of Texas's electric grid",
+    name: 'Rinc.ai',
+    id: 'rinc-card',
+    subtitle: 'Plug-and-play Content Moderation',
     descriptions: [
     ],
-    color: "bg-red-500",
-    span: "col-span-5",
+    color: "bg-indigo-500",
+    span: "col-span-4",
     show: false,
     details: {
-      link_title: "",
-      link: "",
+      link_title: "Rinc.ai",
+      link: "https://rinc.ai",
       descriptions: [
-        "In 2019 I started as a researcher at the Webber Energy Group—a research group in the Mechanical Engineering Department at UT Austin that focuses on critical energy and environmental issues.",
-        "My work primarly consists of creating open source digital models of Texas’ power grid using Python for Power Systems Analysis and SWITCH: Power Systems Planning model."
+        "We are building a human-in-the-loop solution for moderating user-generated content. We train ML models on content from customer applications to create filters that enforce platform-specific guidelines. We also provide a plug-and-play user reporting flow for applications that connects with our moderator dashboard."
       ],
-      logo: "./assets/images/webberenergy_photos/webberenergy_logo.png",
+      logo: "",
       image_display: "grid-cols-2",
-      images: [],
-      gif: "https://media.giphy.com/media/QAys7CJQL6qbef6Qbx/giphy.gif"
-    }
-  },
-  {
-    name: 'Science Olympiad',
-    subtitle: 'Fun engineering challenges',
-    descriptions: [
-    ],
-    color: "bg-rose-500",
-    span: "col-span-8",
-    show: false,
-    details: {
-      link_title: "lasascioly.com",
-      link: "https://www.lasascioly.com/",
-      descriptions: [
-        "I've been competing in Science Olympiad, with a primary focus in engineering, for the past 7 years. My sophmore year (10th) I was elected as the captain of the LASA Science Olympiad team.",
-      ],
-      logo: "./assets/images/science_olympiad_photos/square_scio.png",
-      image_display: "grid-cols-2",
-      images: [],
-      gif: "",
-      scio: true
+      images: []
     }
   },
   {
     name: 'Nomo',
+    id: 'nomo-card',
     subtitle: 'Events app for stanford',
     descriptions: [
     ],
@@ -249,6 +262,7 @@ const projects = [
   },
   {
     name: 'Echo',
+    id: 'echo-card',
     subtitle: 'Make shortform podcasts',
     descriptions: [
     ],
@@ -274,6 +288,7 @@ const projects = [
   },
   {
     name: 'Ecuisina',
+    id: 'ecuisina-card',
     subtitle: 'Food trading platform for neighbors',
     descriptions: [
     ],
@@ -296,6 +311,7 @@ const projects = [
   },
   {
     name: 'GimmeSMS',
+    id: 'gimmesms-card',
     subtitle: 'Search the internet through SMS texting',
     descriptions: [
     ],
@@ -319,6 +335,7 @@ const projects = [
   },
   {
     name: 'Orgo Problem Database',
+    id: 'orgo-card',
     subtitle: 'Search Organic Chemistry Challenge Problems',
     descriptions: [
     ],
@@ -376,6 +393,7 @@ function App() {
     temp[index].prev_span = temp[index].span;
     temp[index].span = "col-span-12";
     temp[index].show = true;
+    window.location = `#${temp[index].id}`;
 
     setPreviouslyViewedProjectIndex(index);
     setProjects(temp);
@@ -415,7 +433,7 @@ function App() {
         <h2 className='font-semibold text-2xl text-slate-50 pt-16 pb-4'>Projects <span className="text-slate-400">(click on each to expand)</span></h2>
         <div className="grid max-w-full sm:grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4">
           {projectsList.map((project, index) =>
-            <div className={`${isMobile ? 'col-span-12' : project.span} ${project.color} ${project.show ? 'p-8' : 'p-4'} flex cursor-pointer flex-col shadow-2xl`}
+            <div id={project.id} className={`${isMobile ? 'col-span-12' : project.span} ${project.color} ${project.show ? 'p-8' : 'p-4'} ${project.show ? 'ring-offset-1 ring-2 ring-white' : ''} flex cursor-pointer flex-col shadow-2xl rounded-sm`}
               onClick={() => showMore(index)}>
               {project.show && project.details.logo && <div>
                 <img src={require(`${project.details.logo}`)} className="w-20 rounded-full bg-white p-4 mb-6"></img>
@@ -434,8 +452,10 @@ function App() {
                   )}
                 </div>
                 {project.details.gif && <img src={project.details.gif} className="w-full rounded-md"></img>}
-
-
+                {project.details.boba &&
+                  <div className="w-full justify-center align-middle text-center">
+                    <TwitterVideoEmbed id={'1503571971249893378'} />
+                  </div>}
                 {project.details.scio && <Carousel renderItem={customRenderItem} renderThumbs={customRenderThumb}>
                   <YoutubeSlide key="mission-possible" url="https://www.youtube.com/embed/EhfatoRAiEc" />
                   <YoutubeSlide key="mousetrap-vehicle" url="https://www.youtube.com/embed/ZkYCkzl9gTA" />
