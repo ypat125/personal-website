@@ -10,6 +10,84 @@ import { AiFillGithub, AiOutlineTwitter, AiFillLinkedin } from "react-icons/ai";
 
 const projects = [
   {
+    name: 'TreeHacks sign',
+    id: 'treehackssign-card',
+    subtitle: 'A fun laser cut build for TreeHacks',
+    color: "bg-sky-400",
+    linkcolor: "#f87838",
+    span: "col-span-8",
+    show: false,
+    details: {
+      link_title: "https://twitter.com/ypatil125/status/1620623555062013952?s=20&t=PUyC1SNCAO1p4zncriyzzw",
+      link: "https://twitter.com/ypatil125/status/1620623555062013952?s=20&t=PUyC1SNCAO1p4zncriyzzw",
+      descriptions: [
+        "Thought this would be a cool art piece for the hackathon.",
+      ],
+      logo: "",
+      image_display: "grid-cols-2",
+      images: [],
+      treehackssign: true
+    }
+  },
+  {
+    name: 'Jankbot',
+    id: 'treehacks-card',
+    subtitle: 'A random robot/gokart I made for fun.',
+    color: "bg-sky-400",
+    linkcolor: "#f87838",
+    span: "col-span-8",
+    show: false,
+    details: {
+      link_title: "https://twitter.com/ypatil125/status/1619626919334678529?s=20&t=PUyC1SNCAO1p4zncriyzzw",
+      link: "https://twitter.com/ypatil125/status/1619626919334678529?s=20&t=PUyC1SNCAO1p4zncriyzzw",
+      descriptions: [
+        "I was bored and built a robot/gokart that can drive around and do random things. It's powered by two escooter motors Pi and uses a webcam to detect poses. The plan is to have this guy hand out drinks to hackers at TreeHacks.",
+      ],
+      logo: "",
+      image_display: "grid-cols-2",
+      images: [],
+      jankbot: true
+    }
+  },
+  {
+    name: 'TreeHacks',
+    id: 'treehacks-card',
+    subtitle: 'Co-directed TreeHacks',
+    color: "bg-sky-400",
+    linkcolor: "#f87838",
+    span: "col-span-8",
+    show: false,
+    details: {
+      link_title: "treehacks.com",
+      link: "https://treehacks.com",
+      descriptions: [
+        "I co-directed TreeHacks 2023. It's one of the largest hackathon in the world, with over 1,700 hackers.",
+      ],
+      logo: "",
+      image_display: "grid-cols-2",
+      images: []
+    }
+  },
+  {
+    name: 'Armadillo Labs',
+    id: 'armadillo-card',
+    subtitle: 'ML for D2C storefronts',
+    color: "bg-sky-400",
+    linkcolor: "#f87838",
+    span: "col-span-8",
+    show: false,
+    details: {
+      link_title: "joindirected.com",
+      link: "https://joindirected.com",
+      descriptions: [
+        "I spent the summer working on Armadillo Labs, a startup that uses machine learning to help D2C brands optimize their storefronts.",
+      ],
+      logo: "",
+      image_display: "grid-cols-2",
+      images: []
+    }
+  },
+  {
     name: 'Helping Hands',
     id: 'hh-card',
     subtitle: 'Food delivery during the pandemic',
@@ -411,7 +489,7 @@ function App() {
       <div className="max-w-screen-lg p-8">
         <div className='relative'>
           <h1 className='text-3xl'>Yash Patil</h1>
-          <p className='text-md font-normal pt-8'>Hi! I'm a sophomore at Stanford studying Computer Science - Systems. I also co-direct <a className="text-blue-700 underline" href="https://www.treehacks.com/" target="_blank">TreeHacks</a>, Stanford's annual hackathon and one of the largest in the world.</p>
+          <p className='text-md font-normal pt-8'>Hi! I'm a sophomore at Stanford studying CS. I also co-direct <a className="text-blue-700 underline" href="https://www.treehacks.com/" target="_blank">TreeHacks</a> - Stanford's annual hackathon and one of the largest in the world.</p>
           <p className='text-md font-normal pt-4'>I spent last summer in NYC building human in the loop ML based optimizations for ecommerce storefronts with my best friend <a className="text-blue-700 underline" href="https://longo.land/" target="_blank">Daniel</a>. </p>
           <p className='text-md font-normal pt-4'>In the past I've interned as a fullstack engineer at <a className="text-blue-700 underline" href="https://actively.ai" target="_blank">Actively.ai</a> building software that enables every knowledge worker to be a data scientist. I've also worked as a software engineering intern at <a target='_blank' className="text-blue-700 underline" href="https://bit.io">bit.io</a> and <a className="text-blue-700 underline" href="https://getpei.com">Pei</a> as well as a grid modeling researcher at the <a className="text-blue-700 underline" href="http://www.webberenergygroup.com/people/yash-patil/">Webber Energy Group</a> at UT Austin.</p>
           <p className='text-md font-normal pt-4 pb-8'>During the pandemic, I also co-founded <a target='_blank' className="text-blue-700 underline" href="https://helpinghands.community">Helping Hands</a>, a startup that streamlines how food banks and social service organizations deliver food at scale (over 2,000,000 meals delivered).</p>
@@ -448,6 +526,15 @@ function App() {
                     {project.details.boba &&
                       <div className="w-full justify-center align-middle text-center">
                         <TwitterVideoEmbed id={'1503571971249893378'} />
+                      </div>}
+                    {project.details.jankbot &&
+                      <div className="w-full justify-center align-middle text-center">
+                        <TwitterVideoEmbed id={'1619626919334678529'} />
+                        <TwitterVideoEmbed id={'1619616747006615553'} />
+                      </div>}
+                    {project.details.treehackssign &&
+                      <div className="w-full justify-center align-middle text-center">
+                        <TwitterVideoEmbed id={'1620623555062013952'} />
                       </div>}
                     {project.details.scio && <Carousel renderItem={customRenderItem} renderThumbs={customRenderThumb}>
                       <YoutubeSlide key="mission-possible" url="https://www.youtube.com/embed/EhfatoRAiEc" />
