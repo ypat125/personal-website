@@ -503,7 +503,7 @@ function App() {
         </div>
 
         <div id='projects' className='flex flex-col mt-12 pb-12'>
-          <h2 className='text-lg'>Projects</h2>
+          <h2 className='text-lg mb-2'>Projects (no particular order)</h2>
           <ul>
             {projectsList.map((project, index) =>
               <li>
